@@ -25,6 +25,6 @@
     "edit": "npx swagger project edit",
     "start": "npx swagger project start",
     "test": "npx swagger project test",
-    "deploy": "bash cicd/docker_push.sh"
+    "deploy": "bash docker_push.sh"
   }
 }
