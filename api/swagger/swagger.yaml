@@ -65,7 +65,7 @@ paths:
     # our controller name
     x-swagger-router-controller: book
     get:
-      operationId: getOne
+      operationId: find
       description: get a book
       # define the type of response for Success "200" and Error
       parameters:
