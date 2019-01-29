@@ -24,7 +24,7 @@ if (err instanceof HttpError) {
 
 var db = require('../../mock/db')();
 // Exports all the functions to perform on the db
-module.exports = {HttpError, getAll, save, getOne, update, delMovie};
+module.exports = {HttpError, getAll, save, getOne, update, delBook};
 
 
 function microservice(req, res, next){

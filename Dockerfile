@@ -5,6 +5,6 @@ COPY ./package.json /usr
 RUN npm install
 COPY . /usr
 # RUN npm run lint
-EXPOSE 3000
+EXPOSE 10010
 ENTRYPOINT ["npm", "run"]
 CMD ["start"] 

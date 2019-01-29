@@ -1,12 +1,12 @@
 'use strict';
 
-var SwaggerExpress = require('swagger-express-mw');
-var app = require('express')();
-var db = require('./mock/db')();
+const SwaggerExpress = require('swagger-express-mw');
+const app = require('express')();
+const db = require('./mock/db')();
 
 module.exports = app; // for testing
 
-var config = {
+const config = {
   appRoot: __dirname 
 };
 
