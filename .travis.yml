@@ -11,7 +11,7 @@ services:
   
 
 before_install:
-  - npm i -g mocha nyc swagger
+  - npm i -g mocha nyc swagger babel
 
 install:
   - npm i 
