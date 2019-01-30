@@ -2,49 +2,38 @@
 
 const SwaggerExpress = require('swagger-express-mw');
 const app = require('express')();
-const db = require('./mock/db')();
 
-module.exports = app; // for testing
 
 const config = {
   appRoot: __dirname 
 };
 
 
-const middleware = {
-	gw: function(req, res, next){
-		console.log('\n\n\n ---> GW', 
-			{'req.swagger': req.swagger}
-		)
-		next();
-	},
-	errorHandler: function(err, req, res, next) {
-	    let operationId = req.swagger.operation.operationId;
-	    err.operationId = operationId; /* method id */ 
-	    res.status(err.code | 400).json(err);
-	}
-}
-function gw(req, res, next){
-	console.log('\n\n\n ---> middleware.GW', 
-		{
-			'x-microservices': req.swagger.operation['x-microservices']
-		}
-	)
-	next();
-}
+/**
+* Middleware
+* • CORS
+* • Error Handling 
+*
+**/
+import { cors } from './middleware/cors.middleware'
+import { notFoundHandler, errorHandler } from './middleware/errors.middleware'
 
-
+/**
+*
+* Swagger Express Server
+*
+**/
 SwaggerExpress.create(config, function(err, swaggerExpress) {
 	if (err) { 
 		throw err; 
 	}
-
-
+	app.use(cors);
 	swaggerExpress.register(app);
-	app.use(gw);
-	// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-	app.use(middleware.errorHandler);
+	app.use(notFoundHandler);
+	app.use(errorHandler);
 
 	var port = process.env.PORT || 10010;
 	app.listen(port);
 });
+
+module.exports = app; /* for testing */

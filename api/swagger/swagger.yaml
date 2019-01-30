@@ -19,19 +19,10 @@ produces:
   - application/json
 paths:
   /book:
-    # our controller name
-    x-swagger-router-controller: book
-    x-microservices: 
-      - ms.1
-      - ms.2
+    x-swagger-router-controller: book.controller
     get:
-      x-microservices: 
-        products: ms.1
-        users: ms.2
-        apibuilder: apibuilder.api.get
       operationId: getAll
       description: get the books list
-      # define the type of response for Success "200" and Error
       responses:
         "200":
           description: Success
@@ -41,8 +32,9 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    
     post:
-      operationId: save
+      operationId: create
       description: add a new book to the list
       # book info to be stored
       parameters:
@@ -52,27 +44,31 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/Book"
+
       responses:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/GeneralResponse"
+            $ref: "#/definitions/Book"
+
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+
   /book/{id}:
-    # our controller name
-    x-swagger-router-controller: book
+    x-swagger-router-controller: book.controller
     get:
       operationId: find
       description: get a book
-      # define the type of response for Success "200" and Error
+      
       parameters:
         - name: id
-          type: string
+          type: number
           in: path
           required: true
+
       responses:
         "200":
           description: Success
@@ -82,14 +78,15 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
     put:
       operationId: update
       description: update a book
-      # define the parameters
+      
       parameters:
         - name: id
           description: Book id
-          type: string
+          type: number
           in: path
           required: true
         - name: title
@@ -107,14 +104,14 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
     delete:
-      operationId: delBook
+      operationId: destroy
       description: delete a book
-      # define the parameters
       parameters:
         - name: id
           description: Book id
-          type: string
+          type: number
           in: path
           required: true
       responses:
@@ -125,10 +122,11 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"  
+            $ref: "#/definitions/ErrorResponse" 
+
   /:
     x-swagger-pipe: swagger_raw
-# complex objects have schema definitions
+
 definitions:
   # GET /book successful response
   GetBooksListResponse:
@@ -142,35 +140,48 @@ definitions:
           type: object
           properties:
             id:
-              type: string
+              type: number
             title:
               type: string
-            year:
-              type: number
+            category:
+              type: string
+            description:
+              type: string
+
   GetBookResponse:
     required:
       - id
       - title
-      - year
+      - category
+      - description
     properties:
       id:
-        type: string
-      title: 
-        type: string
-      year:
         type: number
+      title:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+
   Book:
     type: object
     properties:
+      id:
+        type: number
       title:
         type: string
-        description: task object name
-      year:
-        type: number
-        description: task description
+        description: Book Title
+      category:
+        type: string
+        description: Book category
+      description:
+        type: string
+        description: Book description
     required:
       - title
-      - year
+      - category
+
   GeneralResponse:
     type: object
     properties:
@@ -183,9 +194,14 @@ definitions:
     required:
       - success
       - description
+
   ErrorResponse:
     required:
       - message
     properties:
+      code:
+        type: number
       message:
+        type: string
+      type:
         type: string

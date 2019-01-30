@@ -2,6 +2,7 @@
 
 const crypto = require('crypto');
 
+var ID = 1;
 module.exports = function() {
 	return {
 		bookList : [
@@ -16,7 +17,7 @@ module.exports = function() {
 		 * Save the book inside the "db".
 		 */
 		save(book) {
-			book.id = crypto.randomBytes(20).toString('hex'); // fast enough for our purpose
+			book.id = ++ID;// crypto.randomBytes(20).toString('hex'); // fast enough for our purpose
 			this.bookList.push(book);
 			return 1;			
 		},

@@ -3,7 +3,7 @@ import { HttpError, ConfigError, DatabaseError } from '../../shared/Errors'
 /**
 * Env 
 **/
-const env = require('dotenv').config({ path: '../.env'});
+const env = require('dotenv').config({ path: './.env'});
 if (env.error) {
 	throw new ConfigError(env.error.message, 'env');
 }

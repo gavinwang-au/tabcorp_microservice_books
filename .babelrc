@@ -1,0 +1,28 @@
+{
+    "presets": ["es2015", "stage-0"],
+    "plugins": [
+        [
+            "babel-root-import", [
+                {
+                    "rootPathPrefix": "~",
+                    "rootPathSuffix": "api"
+                }, 
+                {
+                    "rootPathPrefix": "@",
+                    "rootPathSuffix": "dist"
+                }
+            ]
+        ],
+        [
+            "babel-plugin-relative-path-import",
+            {
+                "paths": [
+                    {
+                        "rootPathPrefix": "@env", // `@` is the default so you can remove this if you want
+                        "rootPathSuffix": "./"
+                    }
+                ]
+            }
+        ]
+    ]
+}
