@@ -40,7 +40,8 @@
     "build": "babel app.js api -d dist/api --source-root app.js --copy-files && npm run move-app",
     "move-app": "mv dist/api/app.js dist/app.js",
     "prod": "npm run build && node dist/app.js",
-    "test": "swagger project test",
+    "test:bundle": "$(npm bin)/babel test -d dist/test --copy-files",
+    "test": "npm run test:bundle && swagger project test dist",
     "start": "npm run prod"
   },
   "directories": {

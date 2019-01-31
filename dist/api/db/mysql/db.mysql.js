@@ -3,6 +3,14 @@
 var _Errors = require('../../shared/Errors');
 
 /**
+* Env 
+**/
+var env = require('dotenv').config({ path: './.env' });
+if (env.error) {
+  throw new _Errors.ConfigError(env.error.message, 'env');
+}
+
+/**
 * ORM 
 **/
 var Sequelize = require('sequelize');
