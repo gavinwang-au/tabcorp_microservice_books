@@ -14,7 +14,7 @@ const config = {
 **/
 const env = require('dotenv').config({ path: './.env'});
 if (env.error) {
-	throw new ConfigError(env.error.message, 'env');
+	console.error('env file not found', env.error.message);
 }
 
 
