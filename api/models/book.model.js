@@ -52,7 +52,7 @@ export class BookModel extends Model{
 	async create(){
 		try{
 			let dbRes = await BookTable.create(this);
-			this.validateInteger('id', dbRes.id);
+			// this.validateInteger('id', dbRes.id);
 			this.id = dbRes.id;
 			return dbRes;
 		}
