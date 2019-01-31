@@ -3,7 +3,7 @@ import {
 	ModelValidationError,
 	ModelNotFoundError,
 	DatabaseError
-} from '../../shared/Errors';
+} from '../shared/Errors';
 
 export class Model{
 
@@ -17,7 +17,6 @@ export class Model{
 	validateJson(attrs, json){
 		var keys = Object.keys(json);
 		attrs.forEach(attr => {
-			console.log('attr--->', {attr:attr, json: json, 'json yes-->':json.hasOwnProperty(attr)});
 			if(!json.hasOwnProperty(attr))
 				throw new ModelValidationError(`${attr} is required and not found in ${keys}`);
 		})

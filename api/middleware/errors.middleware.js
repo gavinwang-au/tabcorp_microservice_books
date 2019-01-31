@@ -10,8 +10,16 @@ export function notFoundHandler(req, res) {
 * Custom Errors 
 */
 export function errorHandler(err, req, res, next) {
-    let operationId = req.swagger.operation.operationId;
-    err.operationId = operationId; /* method id */ 
+
+    try{
+        let operationId = req.swagger.operation.operationId;
+        err.operationId = operationId; 
+    } catch(err){
+        if(err instanceof TypeError){ 
+            console.error('Swagger operation is missing: ', err.message);
+        }
+    }
+
     console.error('middleware.errorHandler.err ---> ', {'middleware.errorHandler.err.constructor.name':err.constructor.name, 'middleware.errorHandler.err':err.message, 'err instanceof HttpError': err instanceof HttpError});
     if(err instanceof Error){
         console.error(err);

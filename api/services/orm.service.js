@@ -1,5 +1,5 @@
-import { DatabaseError } from '../../shared/Errors'
-import { MysqlBookTable } from '../../db/mysql/db.book'
+import { DatabaseError } from '../shared/Errors'
+import { MysqlBookTable } from '../db/mysql/db.book'
 
 /**
 *

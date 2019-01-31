@@ -7,7 +7,7 @@ import {
 	ModelError,
 	ModelValidationError,
 	ModelNotFoundError 
-} from '../../shared/Errors';
+} from '../shared/Errors';
 
 
 /**
